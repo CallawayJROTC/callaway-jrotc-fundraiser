@@ -1,3 +1,7 @@
+# V2 Layout Fix
+
+This version fixes the desktop hero alignment, headline clipping, oversized empty hero spacing, and campaign-card positioning seen on the live GitHub page.
+
 # Callaway High School Army JROTC Fundraiser
 
 A responsive GitHub Pages fundraising website for the Callaway High School Army JROTC 4th Battalion Chargers.

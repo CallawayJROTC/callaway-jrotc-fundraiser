@@ -216,7 +216,7 @@ code {
 .hero {
   position: relative;
   isolation: isolate;
-  min-height: 850px;
+  min-height: 720px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -231,15 +231,17 @@ code {
 
 .hero-image {
   background:
-    url("images/hero.jpg") center 30% / cover no-repeat,
-    linear-gradient(135deg, #12396d, #071426);
+    linear-gradient(90deg, rgba(7,20,38,.12), rgba(8,43,99,.12)),
+    url("images/hero.jpg") center 32% / cover no-repeat,
+    radial-gradient(circle at 78% 36%, rgba(19,86,176,.42), transparent 25rem),
+    linear-gradient(135deg, #0c326d 0%, #071426 62%, #04101f 100%);
 }
 
 .hero-overlay {
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(3,12,25,.96) 0%, rgba(4,16,33,.83) 47%, rgba(4,16,33,.58) 76%, rgba(3,12,25,.78) 100%),
-    linear-gradient(0deg, rgba(7,20,38,1) 0%, transparent 26%);
+    linear-gradient(90deg, rgba(3,12,25,.93) 0%, rgba(4,16,33,.78) 46%, rgba(4,16,33,.48) 72%, rgba(3,12,25,.68) 100%),
+    linear-gradient(0deg, rgba(7,20,38,1) 0%, transparent 24%);
 }
 
 .hero::before {
@@ -256,11 +258,10 @@ code {
 }
 
 .hero-grid {
-  width: 100%;
-  padding: 108px 0 120px;
+  padding: 88px 0 96px;
   display: grid;
   grid-template-columns: minmax(0, 1.18fr) minmax(340px, .82fr);
-  gap: 64px;
+  gap: 46px;
   align-items: center;
 }
 
@@ -303,7 +304,7 @@ code {
   margin: 0;
   max-width: 760px;
   font-family: "Barlow Condensed", sans-serif;
-  font-size: clamp(4rem, 7.4vw, 7.2rem);
+  font-size: clamp(4rem, 6.2vw, 6.35rem);
   font-weight: 900;
   line-height: .84;
   letter-spacing: -.025em;
@@ -1115,5 +1116,36 @@ code {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
+  }
+}
+
+
+/* V2 hero alignment fixes */
+.hero-copy,
+.campaign-card {
+  align-self: center;
+}
+
+.hero-copy {
+  min-width: 0;
+}
+
+.campaign-card {
+  width: 100%;
+  max-width: 470px;
+  justify-self: end;
+}
+
+@media (min-width: 1051px) {
+  .hero-grid {
+    width: min(calc(100% - 34px), var(--max));
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 1050px) {
+  .campaign-card {
+    justify-self: start;
+    max-width: 680px;
   }
 }
