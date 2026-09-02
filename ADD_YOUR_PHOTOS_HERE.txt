@@ -1,0 +1,8 @@
+Add these image files to this folder:
+hero.jpg
+photo1.jpg
+photo2.jpg
+photo3.jpg
+
+The website uses placeholder.svg automatically if a gallery photo is missing.
+For the hero background, add hero.jpg for the strongest visual result.

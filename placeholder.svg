@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#082b63"/>
+      <stop offset="1" stop-color="#071426"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+  <circle cx="1310" cy="170" r="260" fill="#f47a1f" opacity=".12"/>
+  <circle cx="220" cy="820" r="300" fill="#1356b0" opacity=".18"/>
+  <text x="800" y="450" fill="#ffffff" opacity=".96" text-anchor="middle"
+        font-family="Arial, sans-serif" font-size="78" font-weight="800">
+    CALLAWAY JROTC
+  </text>
+  <text x="800" y="545" fill="#f47a1f" text-anchor="middle"
+        font-family="Arial, sans-serif" font-size="42" font-weight="700">
+    REPLACE WITH YOUR CADET PHOTO
+  </text>
+  <text x="800" y="620" fill="#cdd8ea" text-anchor="middle"
+        font-family="Arial, sans-serif" font-size="28">
+    images/hero.jpg • photo1.jpg • photo2.jpg • photo3.jpg
+  </text>
+</svg>
