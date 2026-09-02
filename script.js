@@ -1,139 +1,42 @@
-/* =========================================================
-   CALLAWAY JROTC FUNDRAISER SETTINGS
-   EDIT ONLY THE VALUES IN THIS FIRST SECTION FOR ROUTINE UPDATES
-   ========================================================= */
-
 const SETTINGS = {
   donationUrl: "https://onlinedonations.us/home/tview_donate/8099",
-
-  // Campaign numbers
   goalAmount: 10000,
-  raisedAmount: 0,
-
-  // Campaign deadline
-  campaignEnd: "2026-10-31T23:59:59",
-
-  // Displayed on the countdown card.
-  deadlineLabel: "October 31, 2026"
+  raisedAmount: 0
 };
 
-
-/* =========================================================
-   SITE LOGIC
-   ========================================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
-  applyDonationLinks();
-  updateCampaignProgress();
-  setupCountdown();
-  setupCopyButton();
-});
+  document.querySelectorAll(".donate-link").forEach(a => a.href = SETTINGS.donationUrl);
 
+  const pct = Math.min((SETTINGS.raisedAmount / SETTINGS.goalAmount) * 100, 100);
+  const remaining = Math.max(SETTINGS.goalAmount - SETTINGS.raisedAmount, 0);
 
-function applyDonationLinks() {
-  document.querySelectorAll(".donate-link").forEach(link => {
-    link.href = SETTINGS.donationUrl;
-  });
-}
+  document.getElementById("raisedAmount").textContent = "$" + SETTINGS.raisedAmount.toLocaleString();
+  document.getElementById("progressPercent").textContent = pct.toFixed(1).replace(".0","") + "%";
+  document.getElementById("remainingAmount").textContent =
+    remaining > 0 ? "$" + remaining.toLocaleString() + " remaining" : "Goal reached!";
 
+  const msg = document.getElementById("supporterText");
+  if (SETTINGS.raisedAmount === 0) msg.textContent = "Be one of our first supporters!";
+  else if (pct < 50) msg.textContent = "Momentum is building!";
+  else if (pct < 80) msg.textContent = "More than halfway there!";
+  else if (pct < 100) msg.textContent = "The finish line is in sight!";
+  else msg.textContent = "Mission accomplished!";
 
-function formatMoney(value) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0
-  }).format(value);
-}
+  setTimeout(() => document.getElementById("progressBar").style.width = pct + "%", 250);
 
-
-function updateCampaignProgress() {
-  const goal = Math.max(SETTINGS.goalAmount, 1);
-  const raised = Math.max(SETTINGS.raisedAmount, 0);
-  const remaining = Math.max(goal - raised, 0);
-  const percent = Math.min((raised / goal) * 100, 100);
-
-  const goalAmount = document.getElementById("goalAmount");
-  const raisedAmount = document.getElementById("raisedAmount");
-  const progressPercent = document.getElementById("progressPercent");
-  const remainingAmount = document.getElementById("remainingAmount");
-  const progressBar = document.getElementById("progressBar");
-  const supporterMessage = document.getElementById("supporterMessage");
-
-  goalAmount.textContent = formatMoney(goal);
-  raisedAmount.textContent = formatMoney(raised);
-  progressPercent.textContent = percent.toFixed(1) + "%";
-  remainingAmount.textContent =
-    remaining > 0 ? `${formatMoney(remaining)} remaining` : "Goal reached!";
-
-  if (raised === 0) {
-    supporterMessage.textContent = "Be one of our first supporters.";
-  } else if (percent < 50) {
-    supporterMessage.textContent = "Momentum is building.";
-  } else if (percent < 80) {
-    supporterMessage.textContent = "More than halfway there.";
-  } else if (percent < 100) {
-    supporterMessage.textContent = "The finish line is in sight.";
-  } else {
-    supporterMessage.textContent = "Mission accomplished!";
-  }
-
-  requestAnimationFrame(() => {
-    setTimeout(() => {
-      progressBar.style.width = percent + "%";
-    }, 250);
-  });
-}
-
-
-function setupCountdown() {
-  const deadlineText = document.getElementById("deadlineText");
-  deadlineText.textContent = `Campaign deadline: ${SETTINGS.deadlineLabel}`;
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-}
-
-
-function updateCountdown() {
-  const end = new Date(SETTINGS.campaignEnd).getTime();
-  const now = Date.now();
-  const distance = end - now;
-
-  const ids = ["days", "hours", "minutes", "seconds"];
-
-  if (!Number.isFinite(end) || distance <= 0) {
-    ids.forEach(id => {
-      document.getElementById(id).textContent = "00";
-    });
-    return;
-  }
-
-  const days = Math.floor(distance / 86400000);
-  const hours = Math.floor((distance % 86400000) / 3600000);
-  const minutes = Math.floor((distance % 3600000) / 60000);
-  const seconds = Math.floor((distance % 60000) / 1000);
-
-  document.getElementById("days").textContent = String(days).padStart(2, "0");
-  document.getElementById("hours").textContent = String(hours).padStart(2, "0");
-  document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
-  document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
-}
-
-
-function setupCopyButton() {
-  const button = document.getElementById("copyLinkButton");
-  const notice = document.getElementById("copyNotice");
-
-  button.addEventListener("click", async () => {
+  document.getElementById("shareButton").addEventListener("click", async () => {
+    const notice = document.getElementById("shareNotice");
+    const data = {
+      title: "Callaway JROTC $10,000 Mission",
+      text: "Support Callaway High School Army JROTC and help us reach our $10,000 mission.",
+      url: window.location.href
+    };
     try {
-      await navigator.clipboard.writeText(window.location.href);
-      notice.textContent = "Campaign link copied.";
-    } catch {
-      notice.textContent = "Copy the web address from your browser to share the campaign.";
-    }
-
-    setTimeout(() => {
-      notice.textContent = "";
-    }, 3500);
+      if (navigator.share) await navigator.share(data);
+      else {
+        await navigator.clipboard.writeText(window.location.href);
+        notice.textContent = "Campaign link copied.";
+      }
+    } catch (e) {}
   });
-}
+});
