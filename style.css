@@ -81,3 +81,30 @@ footer{background:#03101f;border-top:1px solid rgba(255,255,255,.1);padding:20px
 @media(max-width:700px){
  .site-header .btn-nav{display:none}.brand-copy span{font-size:9px}.brand-copy strong{font-size:13px}.hero-layout{padding-top:30px}.recognition{width:auto}.eyebrow{font-size:13px}.hero-actions,.hero-actions .btn{width:100%}.goal-number{font-size:56px}.stat-grid{grid-template-columns:1fr 1fr}.impact-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:1fr 1fr}.gallery-grid figure{height:190px}.mission-panel-grid,.faq-grid{grid-template-columns:1fr}.level-grid{grid-template-columns:1fr}.featured-level{transform:none}.section-title h2{font-size:28px;white-space:normal}.footer-inner{align-items:flex-start;flex-direction:column}.floating-donate{right:10px;bottom:10px}
 }
+
+
+/* Achievement summary beneath Military Star School */
+.achievement-summary{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px 14px;
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px solid rgba(255,255,255,.18);
+}
+.achievement-summary span{
+  color:#ff9a52;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.045em;
+  white-space:nowrap;
+}
+@media(max-width:700px){
+  .achievement-summary{
+    display:grid;
+    gap:5px;
+  }
+  .achievement-summary span{
+    white-space:normal;
+  }
+}

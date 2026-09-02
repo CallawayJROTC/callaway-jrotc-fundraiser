@@ -1,3 +1,10 @@
+# V2 updates
+- Corrected Color Guard photo orientation.
+- Added achievement summary after Military Star School:
+  - JLAB Nationals — 2 consecutive years
+  - 8 straight Cadets of the Year
+  - $400,000+ in scholarships
+
 # Callaway JROTC $10,000 Mission
 
 This package is ready for GitHub Pages.
