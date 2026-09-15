@@ -1,39 +1,11 @@
-# V5 — New Group Fundraiser Link
+# V6 Automatic Fundraiser Sync
+Current starting total: **$352 of $10,000**.
 
-All donation buttons and the QR code now point to the new Callaway JROTC group fundraiser page.
+This version adds an hourly GitHub Actions workflow. It reads the public OnlineDonations group page, updates `fundraiser-data.json`, and the website reads that file to display Raised, Progress, and Remaining automatically.
 
-# Callaway JROTC $10,000 Mission — V4 Logo Edition
+## After uploading
+Upload **everything**, including the hidden `.github` folder. In GitHub, open **Actions → Sync Fundraiser Total → Run workflow** once. Thereafter it is scheduled hourly.
 
-This build uses the official Callaway Chargers JROTC logo supplied for the site.
+If OnlineDonations changes its public page markup, the updater safely preserves the last known amount instead of replacing it with bad data.
 
-## Included
-- Official Callaway Chargers JROTC logo
-- White achievement lines with stars:
-  - Only JPS school to advance to JLAB Nationals 2 years consecutively
-  - Produced 8 straight Cadets of the Year
-  - $400,000+ in scholarships
-- Working Mission, Impact, Levels, Cadets, FAQs navigation
-- Correct $50 per-cadet target
-- Working OnlineDonations buttons
-- QR code to the official fundraiser
-- Cadet photo gallery using supplied photos
-- No uniform-funding language
-
-## Update amount raised
-Open `script.js` and change:
-
-```js
-raisedAmount: 0
-```
-
-Example:
-```js
-raisedAmount: 3250
-```
-
-The percentage, progress bar, and remaining amount update automatically.
-
-## Donation URL
-https://onlinedonations.us/home/team-view-fundraiser/8099/8099
-
-Do not place bank, routing, credit-card, or payment credentials in this repository.
+Group fundraiser: https://onlinedonations.us/home/team-view-fundraiser/8099/8099

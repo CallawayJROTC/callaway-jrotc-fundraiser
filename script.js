@@ -1,44 +1,4 @@
-const SETTINGS = {
-  donationUrl: "https://onlinedonations.us/home/team-view-fundraiser/8099/8099",
-  goalAmount: 10000,
-  raisedAmount: 0
-};
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".donate-link").forEach(a => a.href = SETTINGS.donationUrl);
-
-  const pct = Math.min((SETTINGS.raisedAmount / SETTINGS.goalAmount) * 100, 100);
-  const remaining = Math.max(SETTINGS.goalAmount - SETTINGS.raisedAmount, 0);
-
-  document.getElementById("raisedAmount").textContent = "$" + SETTINGS.raisedAmount.toLocaleString();
-  document.getElementById("progressPercent").textContent = pct.toFixed(1).replace(".0","") + "%";
-  document.getElementById("remainingAmount").textContent = remaining > 0
-    ? "$" + remaining.toLocaleString() + " remaining"
-    : "Goal reached!";
-
-  const supporter = document.getElementById("supporterText");
-  if (SETTINGS.raisedAmount === 0) supporter.textContent = "Be one of our first supporters!";
-  else if (pct < 50) supporter.textContent = "Momentum is building!";
-  else if (pct < 80) supporter.textContent = "More than halfway there!";
-  else if (pct < 100) supporter.textContent = "The finish line is in sight!";
-  else supporter.textContent = "Mission accomplished!";
-
-  setTimeout(() => document.getElementById("progressBar").style.width = pct + "%", 250);
-
-  const shareBtn = document.getElementById("shareButton");
-  shareBtn.addEventListener("click", async () => {
-    const notice = document.getElementById("shareNotice");
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: "Callaway JROTC $10,000 Mission",
-          text: "Support Callaway High School Army JROTC and help us reach our $10,000 mission.",
-          url: window.location.href
-        });
-      } else {
-        await navigator.clipboard.writeText(window.location.href);
-        notice.textContent = "Campaign link copied.";
-      }
-    } catch (e) {}
-  });
-});
+const SETTINGS={donationUrl:"https://onlinedonations.us/home/team-view-fundraiser/8099/8099",goalAmount:10000,fallbackRaisedAmount:352};
+async function getData(){try{const r=await fetch("fundraiser-data.json?ts="+Date.now(),{cache:"no-store"});if(!r.ok)throw 0;return await r.json();}catch(e){return{goalAmount:SETTINGS.goalAmount,raisedAmount:SETTINGS.fallbackRaisedAmount};}}
+function render(goal,raised){const pct=Math.min(raised/goal*100,100),rem=Math.max(goal-raised,0);document.getElementById("raisedAmount").textContent="$"+raised.toLocaleString();document.getElementById("progressPercent").textContent=pct.toFixed(1).replace(".0","")+"%";document.getElementById("remainingAmount").textContent=rem?"$"+rem.toLocaleString()+" remaining":"Goal reached!";const s=document.getElementById("supporterText");s.textContent=pct<25?"The mission is underway!":pct<50?"Momentum is building!":pct<80?"More than halfway there!":pct<100?"The finish line is in sight!":"Mission accomplished!";setTimeout(()=>document.getElementById("progressBar").style.width=pct+"%",200);}
+document.addEventListener("DOMContentLoaded",async()=>{document.querySelectorAll(".donate-link").forEach(a=>a.href=SETTINGS.donationUrl);const d=await getData();render(Number(d.goalAmount||10000),Number(d.raisedAmount??352));const b=document.getElementById("shareButton");if(b)b.addEventListener("click",async()=>{try{if(navigator.share)await navigator.share({title:"Callaway JROTC $10,000 Mission",text:"Support Callaway High School Army JROTC.",url:location.href});else{await navigator.clipboard.writeText(location.href);const n=document.getElementById("shareNotice");if(n)n.textContent="Campaign link copied.";}}catch(e){}});});
