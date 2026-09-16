@@ -21,3 +21,9 @@ footer{background:#020c18;border-top:1px solid rgba(255,255,255,.1);padding:16px
 .countdown-star{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#ff7a1a;color:#fff;font-size:19px;box-shadow:0 8px 22px rgba(255,122,26,.28)}
 #daysRemaining{display:block;font-size:30px;line-height:1;color:#fff;font-weight:900}
 #daysRemainingLabel{display:block;margin-top:5px;color:#ff9a4d;font-size:12px;font-weight:900;letter-spacing:.13em}
+
+/* V8.1 guaranteed campaign status placement */
+.campaign-status-strip{display:grid;grid-template-columns:1fr 1px 1fr;align-items:center;gap:18px;margin:18px 0 20px;padding:16px 18px;border:1px solid rgba(255,122,26,.42);border-radius:16px;background:linear-gradient(135deg,rgba(255,122,26,.13),rgba(11,29,52,.75));box-shadow:0 12px 28px rgba(0,0,0,.16)}
+.status-metric{min-width:0}.status-kicker{display:block;margin-bottom:5px;color:#aebbd0;font-size:11px;font-weight:900;letter-spacing:.13em}
+.status-metric strong{display:block;color:#fff;font-size:22px;font-weight:900;line-height:1.1}.countdown-metric strong{color:#ff8a2b}.status-divider{height:42px;background:rgba(255,255,255,.14)}
+@media(max-width:560px){.campaign-status-strip{gap:12px;padding:14px}.status-metric strong{font-size:18px}.status-kicker{font-size:9px}}
