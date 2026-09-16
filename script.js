@@ -3,12 +3,14 @@ function renderCountdown(endDate){
   const l=document.getElementById("daysRemainingLabel");
   if(!n)return;
   const now=new Date();
-  const end=new Date(endDate+"T23:59:59");
-  const days=Math.max(0,Math.ceil((end-now)/86400000));
-  if(now>end){n.textContent="CAMPAIGN";if(l)l.textContent="ENDED";}
-  else if(days===1){n.textContent="FINAL";if(l)l.textContent="DAY";}
+  const parts=endDate.split("-").map(Number);
+  const todayUTC=Date.UTC(now.getFullYear(),now.getMonth(),now.getDate());
+  const endUTC=Date.UTC(parts[0],parts[1]-1,parts[2]);
+  const days=Math.max(0,Math.round((endUTC-todayUTC)/86400000));
+  if(todayUTC>endUTC){n.textContent="CAMPAIGN";if(l)l.textContent="ENDED";}
+  else if(days===0){n.textContent="FINAL";if(l)l.textContent="DAY";}
   else if(days<=7){n.textContent=days;if(l)l.textContent="FINAL DAYS";}
-  else{n.textContent=days;if(l)l.textContent="DAYS";}
+  else{n.textContent=days;if(l)l.textContent="DAYS REMAINING";}
 }
 const SETTINGS={donationUrl:"https://onlinedonations.us/home/team-view-fundraiser/8099/8099",goalAmount:10000,fallbackRaisedAmount:1034};
 async function loadData(){try{const r=await fetch("./fundraiser-data.json?v="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error();return await r.json();}catch(e){return{goalAmount:10000,raisedAmount:1034,campaignEndDate:"2026-10-14"};}}

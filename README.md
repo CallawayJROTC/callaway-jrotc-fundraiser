@@ -1,8 +1,8 @@
-# Callaway JROTC $10,000 Mission — V8.1
+# Callaway JROTC $10,000 Mission — V8.2
 
-V8.1 fixes countdown placement. The campaign goal card now contains a permanent status strip showing:
-- STILL NEEDED: $8,966
-- TIME LEFT: 28 DAYS (calculated automatically)
-
-Current campaign data: $1,034 raised of $10,000; campaign end date October 14, 2026.
-The countdown updates automatically from the visitor's date.
+Fixes:
+- September 16, 2026 now displays exactly 28 DAYS REMAINING for the October 14, 2026 end date.
+- Countdown uses calendar-day difference instead of hours/Math.ceil.
+- Removed the duplicate STILL NEEDED presentation.
+- Campaign card now uses one clean status row: $8,966 REMAINING | 28 DAYS REMAINING.
+- Current raised amount remains $1,034 (10.34% of $10,000).
