@@ -1,11 +1,13 @@
-# V6 Automatic Fundraiser Sync
-Current starting total: **$352 of $10,000**.
+# Callaway JROTC Fundraiser V7 — Reliable Edition
 
-This version adds an hourly GitHub Actions workflow. It reads the public OnlineDonations group page, updates `fundraiser-data.json`, and the website reads that file to display Raised, Progress, and Remaining automatically.
+V7 keeps the full fundraiser design but removes the failed GitHub scraper. OnlineDonations returned HTTP 403 to GitHub Actions, so pretending that scraper is "automatic" would be unreliable.
 
-## After uploading
-Upload **everything**, including the hidden `.github` folder. In GitHub, open **Actions → Sync Fundraiser Total → Run workflow** once. Thereafter it is scheduled hourly.
+**Starting total:** $352 of $10,000 (3.52%; $9,648 remaining).
 
-If OnlineDonations changes its public page markup, the updater safely preserves the last known amount instead of replacing it with bad data.
+## Fast update
+Edit only `fundraiser-data.json`. Change `raisedAmount` to the current OnlineDonations total and commit. The website automatically recalculates the percentage, remaining amount, progress bar, and status message.
 
-Group fundraiser: https://onlinedonations.us/home/team-view-fundraiser/8099/8099
+An `update-total.html` helper is included. Enter the current amount and it generates/copies the exact JSON you need.
+
+All Donate buttons open the official group fundraiser:
+https://onlinedonations.us/home/team-view-fundraiser/8099/8099
